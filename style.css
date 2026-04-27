@@ -1,0 +1,123 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+
+#pet-canvas {
+    display: block;
+    pointer-events: auto;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+}
+
+#menu {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 30px;
+    width: 100%;
+    background-color: transparent;
+    -webkit-app-region: no-drag;
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 10px;
+    box-sizing: border-box;
+    z-index: 10;
+    transition: background-color 2s ease-out;
+}
+
+.menu-button {
+    opacity: 0;
+    transition: opacity 2s ease-out;
+    cursor: pointer;
+    margin: 0 2px;
+}
+
+#app_close {
+    background-color: #ee0000;
+    color: #fff;
+}
+
+#menu:hover {
+    background-color: #99b7dc;
+    transition: none;
+}
+
+#menu:hover .menu-button,
+#menu.hovered .menu-button {
+    opacity: 1;
+    transition: none;
+}
+
+#menu.hovered {
+    background-color: #99b7dc;
+    transition: none;
+}
+
+#debug-panel {
+    display: none;
+    position: absolute;
+    top: 30px;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.82);
+    color: #7fff7f;
+    font-size: 11px;
+    font-family: monospace;
+    z-index: 9;
+    pointer-events: auto;
+    padding: 4px 6px;
+    box-sizing: border-box;
+    -webkit-app-region: no-drag;
+}
+
+#debug-header {
+    font-size: 10px;
+    color: #ff9f40;
+    margin-bottom: 3px;
+    letter-spacing: 1px;
+}
+
+#debug-distances {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 4px;
+}
+
+.dbg-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2px;
+    margin-bottom: 2px;
+}
+
+.dbg-label {
+    width: 44px;
+    font-size: 10px;
+    color: #999;
+    flex-shrink: 0;
+}
+
+.dbg-btn {
+    font-size: 10px;
+    padding: 1px 5px;
+    cursor: pointer;
+    background: #2a2a2a;
+    color: #ccc;
+    border: 1px solid #555;
+    border-radius: 2px;
+    line-height: 1.5;
+}
+
+.dbg-btn:hover {
+    background: #444;
+    color: #fff;
+}

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Pixel Pet</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas id="pet-canvas" draggable="false"></canvas>
+    <div id="menu">
+        <button class="menu-button" id="debug_toggle" style="display:none">[D]</button>
+        <button class="menu-button" id="menu_button">≡</button>
+        <button class="menu-button" id="app_close">×</button>
+    </div>
+    <div id="debug-panel">
+        <div id="debug-header">■ DEBUG</div>
+        <div id="debug-distances">
+            <span id="dbg-left">← ?</span>
+            <span id="dbg-right">→ ?</span>
+            <span id="dbg-up">↑ ?</span>
+            <span id="dbg-down">↓ ?</span>
+        </div>
+        <div class="dbg-row">
+            <span class="dbg-label">移動</span>
+            <button class="dbg-btn" id="dbg-wl">←</button>
+            <button class="dbg-btn" id="dbg-wr">→</button>
+            <button class="dbg-btn" id="dbg-wu">↑</button>
+            <button class="dbg-btn" id="dbg-wd">↓</button>
+        </div>
+        <div class="dbg-row">
+            <span class="dbg-label">Action</span>
+            <button class="dbg-btn" id="dbg-jump">Jump</button>
+            <button class="dbg-btn" id="dbg-spin">Spin</button>
+            <button class="dbg-btn" id="dbg-spinr">SpinR</button>
+            <button class="dbg-btn" id="dbg-squash">Squash</button>
+            <button class="dbg-btn" id="dbg-rhythm">Rhythm</button>
+        </div>
+        <div class="dbg-row">
+            <span class="dbg-label">Mode</span>
+            <button class="dbg-btn" id="dbg-mc">変更</button>
+            <button class="dbg-btn" id="dbg-mr">リセット</button>
+        </div>
+    </div>
+    <script src="js/pet_renderer.js"></script>
+    <script src="js/mode.js"></script>
+    <script src="js/action.js"></script>
+    <script src="js/event.js"></script>
+    <script src="js/debug.js"></script>
+</body>
+</html>

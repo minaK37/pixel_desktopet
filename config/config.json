@@ -1,0 +1,124 @@
+{
+    "MIN_WAIT": 2000,
+    "MAX_WAIT": 5000,
+    "MOVE_RANGE_H": 100,
+    "MOVE_RANGE_V": 30,
+    "MOVE_RANGE_SMALL": 1.0,
+    "MOVE_RANGE_MIDDLE": 2.0,
+    "MOVE_RANGE_BIG": 5.0,
+    "WINDOW_SIZE_SMALL": 192,
+    "WINDOW_SIZE_MIDDLE": 384,
+    "WINDOW_SIZE_BIG": 576,
+    "DEFAULT_STATE": "normal",
+    "DRAG_STATE": "drag",
+    "idleImages": [
+        {
+            "default_continue": true,
+            "weight": 50
+        },
+        {
+            "expression": "normal",
+            "weight": 50,
+            "uptime": 1000,
+            "uptime_range": true,
+            "move": "horizontal"
+        },
+        {
+            "weight": 50,
+            "move": "action"
+        },
+        {
+            "expression": "normal",
+            "weight": 10,
+            "uptime": 500,
+            "uptime_range": true,
+            "move": "vertical"
+        },
+        {
+            "weight": 50,
+            "move": "mode_change"
+        },
+        {
+            "weight": 20,
+            "move": "mode_reset"
+        }
+    ],
+    "modePool": [
+        {
+            "key": "bodyColor",
+            "value": "#B8DAFF"
+        },
+        {
+            "key": "bodyColor",
+            "value": "#FFB3C6"
+        },
+        {
+            "key": "bodyColor",
+            "value": "#FFFACD"
+        },
+        {
+            "key": "bodyColor",
+            "value": "#C8F5C8"
+        },
+        {
+            "key": "borderColor",
+            "value": "#8B0000"
+        },
+        {
+            "key": "borderColor",
+            "value": "#666666"
+        },
+        {
+            "key": "borderColor",
+            "value": "#003366"
+        },
+        {
+            "key": "rounded",
+            "value": true
+        },
+        {
+            "key": "melted",
+            "value": true
+        },
+        {
+            "key": "eyeStyle",
+            "value": "thin-v"
+        },
+        {
+            "key": "eyeStyle",
+            "value": "thin-h"
+        },
+        {
+            "key": "sizeScale",
+            "value": 0.667
+        }
+    ],
+    "actionPool": [
+        {
+            "action": "jump",
+            "weight": 50
+        },
+        {
+            "action": "spin",
+            "weight": 50
+        },
+        {
+            "action": "spin_reverse",
+            "weight": 50
+        },
+        {
+            "action": "squash",
+            "weight": 50
+        },
+        {
+            "action": "rhythm",
+            "weight": 50
+        }
+    ],
+    "hourlyImages": {
+        "default": {
+            "expression": "normal",
+            "uptime": 4000
+        }
+    }
+}

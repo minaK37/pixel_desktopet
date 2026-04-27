@@ -1,0 +1,15 @@
+{
+  "name": "pixel-desktop-pet",
+  "version": "1.0.0",
+  "main": "main.js",
+  "description": "A pixel art desktop pet rendered in real-time",
+  "scripts": {
+    "start": "electron .",
+    "debug": "electron . --dev-mode"
+  },
+  "author": "emuke",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^37.3.0"
+  }
+}
