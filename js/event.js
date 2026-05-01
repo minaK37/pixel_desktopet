@@ -136,12 +136,12 @@ function startIdleCycle(skipWait = false) {
             renderer.setFacing('left');
             renderer.setTrailSide('none');
             if (Math.random() < 0.5) {
-                // walkUp moves window downward (screen Y increases), so eyes shift down
-                renderer.setEyeOffsetY(2);
+                // walkUp moves window upward (screen Y decreases), so eyes shift up
+                renderer.setEyeOffsetY(-2);
                 window.electronAPI.walkUp(uptimeMs, picked.move);
             } else {
-                // walkDown moves window upward (screen Y decreases), so eyes shift up
-                renderer.setEyeOffsetY(-2);
+                // walkDown moves window downward (screen Y increases), so eyes shift down
+                renderer.setEyeOffsetY(2);
                 window.electronAPI.walkDown(uptimeMs, picked.move);
             }
         }

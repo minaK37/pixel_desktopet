@@ -11,14 +11,28 @@
     "WINDOW_SIZE_BIG": 576,
     "DEFAULT_STATE": "normal",
     "DRAG_STATE": "drag",
+    "marqueeFrameMs": 65,
+    "marqueeMessages": [
+        "HELLO WORLD!",
+        "Now loading... ...There is nothing here.",
+        "pen pineapple apple pen",
+        "Rat a tat!!!",
+        "thank you",
+        "The cake is a lie",
+        "A long time ago, in a galaxy far, far away....",
+        "In the name of ... LOVE?",
+        "To be a knight. Is to be the noble light that illuminates the land.",
+        "THE GOLDEN AGE WILL RETURN AGAIN",
+        "It's exactly {{now_time}} now."
+    ],
     "idleImages": [
         {
             "default_continue": true,
-            "weight": 50
+            "weight": 100
         },
         {
             "expression": "normal",
-            "weight": 50,
+            "weight": 60,
             "uptime": 1000,
             "uptime_range": true,
             "move": "horizontal"
@@ -29,17 +43,17 @@
         },
         {
             "expression": "normal",
-            "weight": 10,
+            "weight": 20,
             "uptime": 500,
             "uptime_range": true,
             "move": "vertical"
         },
         {
-            "weight": 50,
+            "weight": 60,
             "move": "mode_change"
         },
         {
-            "weight": 20,
+            "weight": 15,
             "move": "mode_reset"
         }
     ],
@@ -77,10 +91,6 @@
             "value": true
         },
         {
-            "key": "melted",
-            "value": true
-        },
-        {
             "key": "eyeStyle",
             "value": "thin-v"
         },
@@ -89,14 +99,46 @@
             "value": "thin-h"
         },
         {
-            "key": "sizeScale",
-            "value": 0.667
+            "key": "eyeColor",
+            "value": "#CC2200"
+        },
+        {
+            "key": "eyeColor",
+            "value": "#0055CC"
+        },
+        {
+            "key": "eyeColor",
+            "value": "#007722"
+        },
+        {
+            "key": "bodyAlpha",
+            "value": 0.5
+        },
+        {
+            "key": "hair",
+            "value": true
+        },
+        {
+            "key": "antenna",
+            "value": true
+        },
+        {
+            "key": "catEars",
+            "value": true
+        },
+        {
+            "key": "tail",
+            "value": true
+        },
+        {
+            "key": "sunglasses8",
+            "value": true
         }
     ],
     "actionPool": [
         {
             "action": "jump",
-            "weight": 50
+            "weight": 100
         },
         {
             "action": "spin",
@@ -112,6 +154,18 @@
         },
         {
             "action": "rhythm",
+            "weight": 80
+        },
+        {
+            "action": "tremble",
+            "weight": 50
+        },
+        {
+            "action": "shrink",
+            "weight": 40
+        },
+        {
+            "action": "marquee",
             "weight": 50
         }
     ],

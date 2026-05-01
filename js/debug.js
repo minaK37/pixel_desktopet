@@ -17,7 +17,8 @@
     });
 
     let isDebugWalking = false;
-    const WALK_MS = 2000;
+    const WALK_MS_MIN = 1200;
+    const WALK_MS_MAX = 3200;
 
     // ── Remaining distance display (updates every 200ms) ──────────────────────
     // Shows how many px remain within the current MOVE_RANGE from the walk base.
@@ -48,35 +49,39 @@
 
     function canAct() { return !isDragging && !isJumping && !isDebugWalking; }
 
-    function startWalk(facingDir, trailDir, eyeOff, walkFn) {
+    function startWalk(facingDir, trailDir, eyeOff, axis, walkFn, durationMs = null) {
         if (!canAct()) return;
         isDebugWalking = true;
         renderer.setFacing(facingDir);
         renderer.setTrailSide(trailDir);
         renderer.setEyeOffsetY(eyeOff);
         renderer.setExpression(DEFAULT_STATE);
-        walkFn(WALK_MS, facingDir === 'left' || facingDir === 'right' ? 'horizontal' : 'vertical');
+        const walkMs = durationMs ?? Math.round(WALK_MS_MIN + Math.random() * (WALK_MS_MAX - WALK_MS_MIN));
+        walkFn(walkMs, axis);
         setTimeout(() => {
             window.electronAPI.stopWalking();
             resetMovementState();
             isDebugWalking = false;
-        }, WALK_MS);
+        }, walkMs);
     }
 
     // ── Movement ──────────────────────────────────────────────────────────────
 
-    on('dbg-wl', () => startWalk('left',  'right', 0,  window.electronAPI.walkLeft));
-    on('dbg-wr', () => startWalk('right', 'left',  0,  window.electronAPI.walkRight));
-    on('dbg-wu', () => startWalk('left',  'none',  2,  window.electronAPI.walkUp));
-    on('dbg-wd', () => startWalk('left',  'none',  -2, window.electronAPI.walkDown));
+    on('dbg-wl', () => startWalk('left',  'right', 0,  'horizontal', window.electronAPI.walkLeft));
+    on('dbg-wr', () => startWalk('right', 'left',  0,  'horizontal', window.electronAPI.walkRight));
+    on('dbg-wu', () => startWalk('left',  'none',  -2, 'vertical',   window.electronAPI.walkUp));
+    on('dbg-wd', () => startWalk('left',  'none',  2,  'vertical',   window.electronAPI.walkDown));
 
     // ── Actions ───────────────────────────────────────────────────────────────
 
-    on('dbg-jump',   () => { if (canAct()) performJump();        });
-    on('dbg-spin',   () => { if (canAct()) performSpin();        });
-    on('dbg-spinr',  () => { if (canAct()) performSpinReverse(); });
-    on('dbg-squash', () => { if (canAct()) performSquash();      });
-    on('dbg-rhythm', () => { if (canAct()) performRhythm();      });
+    on('dbg-jump',    () => { if (canAct()) performJump();        });
+    on('dbg-spin',    () => { if (canAct()) performSpin();        });
+    on('dbg-spinr',   () => { if (canAct()) performSpinReverse(); });
+    on('dbg-squash',  () => { if (canAct()) performSquash();      });
+    on('dbg-rhythm',  () => { if (canAct()) performRhythm();      });
+    on('dbg-tremble', () => { if (canAct()) performTremble();     });
+    on('dbg-shrink',  () => { if (canAct()) performShrink();      });
+    on('dbg-marquee', () => { if (canAct()) performMarquee();     });
 
     // ── Mode ──────────────────────────────────────────────────────────────────
 

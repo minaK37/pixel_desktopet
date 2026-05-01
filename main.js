@@ -31,6 +31,22 @@ const isDebugMode = process.argv.includes('--dev-mode');
 const configPath = path.join(__dirname, "config", "config.json");
 const mainConfig = JSON.parse(fs.readFileSync(configPath, "utf-8"));
 
+function getWorkAreaForPoint(x, y) {
+    const point = { x: Math.round(x), y: Math.round(y) };
+    return screen.getDisplayNearestPoint(point).workArea;
+}
+
+function clampBoundsToWorkArea(bounds, area) {
+    const maxX = area.x + area.width - bounds.width;
+    const maxY = area.y + area.height - bounds.height;
+    return {
+        x: Math.max(area.x, Math.min(bounds.x, maxX)),
+        y: Math.max(area.y, Math.min(bounds.y, maxY)),
+        width: bounds.width,
+        height: bounds.height,
+    };
+}
+
 function stopWalking() {
     if (walkInterval) {
         clearInterval(walkInterval);
@@ -75,6 +91,10 @@ app.on('ready', () => {
     });
     mainWindow.loadFile('index.html');
     // mainWindow.webContents.openDevTools({ mode: 'detach' });
+
+    const initial = mainWindow.getBounds();
+    const area = getWorkAreaForPoint(initial.x, initial.y);
+    mainWindow.setBounds(clampBoundsToWorkArea(initial, area));
 
     mainWindow.on('close', () => {
         stopWalking();
@@ -187,7 +207,9 @@ ipcMain.handle('get-window-bounds', () => {
 
 ipcMain.on('move-window', (event, { x, y, width, height }) => {
     stopWalking();
-    mainWindow.setBounds({ x, y, width, height });
+    const area = getWorkAreaForPoint(x, y);
+    const clamped = clampBoundsToWorkArea({ x, y, width, height }, area);
+    mainWindow.setBounds(clamped);
     baseX = mainWindow.getBounds().x;
     baseY = mainWindow.getBounds().y;
 });
@@ -203,7 +225,7 @@ ipcMain.on('start-walking', (event, { duration, direction, VH }) => {
 
     let elapsed = 0;
     let step = 40;
-    const speed = (direction === 'left' || direction === 'down') ? -1 : 1;
+    const speed = (direction === 'left' || direction === 'up') ? -1 : 1;
 
     walkInterval = setInterval(() => {
         if (elapsed >= duration) {
@@ -218,13 +240,21 @@ ipcMain.on('start-walking', (event, { duration, direction, VH }) => {
         if (VH === 'horizontal') {
             newX += speed;
             if (Math.abs(newX - baseX) <= MOVE_RANGE_H) {
-                mainWindow.setBounds({ x: newX, y: newY, width: bounds.width, height: bounds.height });
+                const area = getWorkAreaForPoint(newX, newY);
+                mainWindow.setBounds(clampBoundsToWorkArea(
+                    { x: newX, y: newY, width: bounds.width, height: bounds.height },
+                    area
+                ));
             }
         } else if (VH === 'vertical') {
             step = 200;
             newY += speed;
             if (Math.abs(newY - baseY) <= MOVE_RANGE_V) {
-                mainWindow.setBounds({ x: newX, y: newY, width: bounds.width, height: bounds.height });
+                const area = getWorkAreaForPoint(newX, newY);
+                mainWindow.setBounds(clampBoundsToWorkArea(
+                    { x: newX, y: newY, width: bounds.width, height: bounds.height },
+                    area
+                ));
             }
         }
 
@@ -247,8 +277,8 @@ ipcMain.handle('get-screen-bounds', () => {
 
 // Returns the walk base position and current MOVE_RANGE values for debug display.
 ipcMain.handle('get-move-bounds', () => ({
-    baseX:  baseX,
-    baseY:  baseY,
+    baseX: baseX,
+    baseY: baseY,
     rangeH: MOVE_RANGE_H,
     rangeV: MOVE_RANGE_V,
 }));
